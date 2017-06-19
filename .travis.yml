@@ -1,0 +1,11 @@
+language: c
+
+compiler:
+    - clang
+    - gcc
+
+install:
+    - make
+
+script:
+    - make test
