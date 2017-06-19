@@ -1,4 +1,7 @@
 *.a
 *.o
+*.swp
+*.dSYM
+peg-*/[lp]eg
 rst_parser.c
 rst
