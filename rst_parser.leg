@@ -82,8 +82,6 @@ Image = NonindentSpace
         | ( Sp ":align:" Sp g:Source BlankLine ) )*
         {
             element *tt;
-            element *gg;
-            tt = mk_element(LIST);
             if (a != NULL) {
                 tt = mk_link(mk_str(l->contents.str), l->contents.str, a->contents.str);
                 free_element(a);
@@ -94,7 +92,7 @@ Image = NonindentSpace
             free_element(l);
 
             if (t != NULL) {
-                gg = mk_link(mk_str(t->contents.str), t->contents.str, t->contents.str);
+                element *gg = mk_link(mk_str(t->contents.str), t->contents.str, t->contents.str);
                 gg->children = tt;
                 $$ = gg;
                 free_element(t);
