@@ -1,6 +1,6 @@
-======
-librst
-======
+=======
+peg-rst
+=======
 
 .. image:: https://travis-ci.org/hhatto/peg-rst.svg?branch=master
     :target: https://travis-ci.org/hhatto/peg-rst
