@@ -43,13 +43,17 @@ static void free_element_contents(element elt) {
         case HTML:
         case VERBATIM:
         case CODE:
-        case CODEBLOCK:
-            free(elt.contents.code);
-            elt.contents.code = NULL;
-            break;
         case NOTE:
             free(elt.contents.str);
             elt.contents.str = NULL;
+            break;
+        case CODEBLOCK:
+            free(elt.contents.code->lang);
+            elt.contents.code->lang = NULL;
+            free(elt.contents.code->str);
+            elt.contents.code->str = NULL;
+            free(elt.contents.code);
+            elt.contents.code = NULL;
             break;
         case LINK:
         case IMAGE:
