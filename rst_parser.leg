@@ -606,7 +606,7 @@ UnquotedRefLinkUnderbar =
     < a:UnquotedLinkSource > '_'
     {
         link match;
-        if (find_reference(&match, mk_str(a->contents.str))) {
+        if (find_reference(&match, a->children)) {
             $$ = mk_link(mk_str(a->contents.str), match.url, match.title);
             free_element(a);
         } else {
@@ -621,7 +621,7 @@ QuotedRefLinkUnderbar =
     ( !"`_" !"``_" '`' !"``" ) a:QuotedRefSource ( '`' !"``" ) '_'
     {
         link match;
-        if (find_reference(&match, mk_str(a->contents.str))) {
+        if (find_reference(&match, a->children)) {
             $$ = mk_link(mk_str(yytext), match.url, match.title);
             free_element(a);
         } else {
