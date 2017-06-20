@@ -181,6 +181,9 @@ int main(int argc, char * argv[]) {
     fprintf(output, "%s\n", out);
     free(out);
 
+    if (output != stdout)
+        fclose(output);
+
     g_string_free(inputbuf, true);
 
     return(EXIT_SUCCESS);
