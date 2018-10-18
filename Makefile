@@ -1,3 +1,5 @@
+.PHONY: test
+
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 ifneq (,$(findstring MINGW,$(uname_S)))
 	X = .exe
@@ -37,6 +39,7 @@ rst_parser.c: rst_parser.leg $(LEG) rst_peg.h parsing_functions.c utility_functi
 
 clean:
 	rm -f rst_parser.c $(PROGRAM) $(OBJS) $(LIBNAME).*
+	rm -f test/*.html
 
 distclean: clean
 	make -C $(PEGDIR) spotless clean
@@ -45,4 +48,5 @@ leak-check: $(PROGRAM)
 	valgrind --leak-check=full ./$(PROGRAM) README.rst
 
 test: $(PROGRAM)
-	./$(PROGRAM) README.rst
+	./$(PROGRAM) test/goldenmaster/peg-rst.readme.rst > test/tmp.peg-rst.readme.html
+	diff -u test/tmp.peg-rst.readme.html test/goldenmaster/peg-rst.readme.html
