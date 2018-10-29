@@ -690,14 +690,6 @@ UnquotedReference = NonindentSpace
                 $$->key = REFERENCE;
             }
 
-UrlReference = ( NonindentSpace | Sp )
-               ":target:" Sp s:RefSrc BlankLine
-                {
-                    $$ = mk_link(mk_str(yytext), yytext, "");
-                    free_element(s);
-                    $$->key = REFERENCE;
-                }
-
 UnquotedLinkSource  = < ( ( !'_' !':' !'`' ( Nonspacechar ) )+ )* >
               { $$ = mk_str(yytext); }
 
