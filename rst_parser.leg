@@ -765,7 +765,7 @@ HexEntity =     < '&' '#' [Xx] [0-9a-fA-F]+ ';' >
 DecEntity =     < '&' '#' [0-9]+ > ';' >
 CharEntity =    < '&' [A-Za-z0-9]+ ';' >
 
-NonindentSpace =    "   " | "  " | " " | ""
+NonindentSpace =    "  " | " " | ""
 Indent =            "\t" | "    "
 IndentedLine =      Indent Line
 OptionallyIndentedLine = Indent? Line
