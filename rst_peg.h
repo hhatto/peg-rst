@@ -12,7 +12,7 @@ struct Link {
     char             *title;    
 };
 
-typedef struct Link link;
+typedef struct Link peglink;
 
 struct Code {
     char *lang;
@@ -24,7 +24,7 @@ typedef struct Code code;
 /* Union for contents of an Element (string, list, or link). */
 union Contents {
     char             *str;
-    struct Link      *link;
+    struct Link      *peglink;
     struct Code      *code;
 };
 

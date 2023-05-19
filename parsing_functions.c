@@ -58,13 +58,13 @@ static void free_element_contents(element elt) {
         case LINK:
         case IMAGE:
         case REFERENCE:
-            free(elt.contents.link->url);
-            elt.contents.link->url = NULL;
-            free(elt.contents.link->title);
-            elt.contents.link->title = NULL;
-            free_element_list(elt.contents.link->label);
-            free(elt.contents.link);
-            elt.contents.link = NULL;
+            free(elt.contents.peglink->url);
+            elt.contents.peglink->url = NULL;
+            free(elt.contents.peglink->title);
+            elt.contents.peglink->title = NULL;
+            free_element_list(elt.contents.peglink->label);
+            free(elt.contents.peglink);
+            elt.contents.peglink = NULL;
             break;
         default:
             ;

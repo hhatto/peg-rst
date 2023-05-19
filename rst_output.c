@@ -175,33 +175,33 @@ static void print_html_element(GString *out, element *elt, bool obfuscate) {
         g_string_append_printf(out, "%s", elt->contents.str);
         break;
     case LINK:
-        if (strstr(elt->contents.link->url, "mailto:") == elt->contents.link->url)
+        if (strstr(elt->contents.peglink->url, "mailto:") == elt->contents.peglink->url)
             obfuscate = true;  /* obfuscate mailto: links */
         g_string_append_printf(out, "<a href=\"");
-        print_html_string(out, elt->contents.link->url, obfuscate);
+        print_html_string(out, elt->contents.peglink->url, obfuscate);
         g_string_append_printf(out, "\"");
-        if (strlen(elt->contents.link->title) > 0) {
+        if (strlen(elt->contents.peglink->title) > 0) {
             g_string_append_printf(out, " title=\"");
-            print_html_string(out, elt->contents.link->title, obfuscate);
+            print_html_string(out, elt->contents.peglink->title, obfuscate);
             g_string_append_printf(out, "\"");
         }
         g_string_append_printf(out, ">");
         if (elt->children != NULL && elt->children->key == IMAGE) {
             print_html_element_list(out, elt->children, obfuscate);
         } else {
-            print_html_element_list(out, elt->contents.link->label, obfuscate);
+            print_html_element_list(out, elt->contents.peglink->label, obfuscate);
         }
         g_string_append_printf(out, "</a>");
         break;
     case IMAGE:
         g_string_append_printf(out, "<img src=\"");
-        print_html_string(out, elt->contents.link->url, obfuscate);
+        print_html_string(out, elt->contents.peglink->url, obfuscate);
         g_string_append_printf(out, "\" alt=\"");
-        print_html_element_list(out, elt->contents.link->label, obfuscate);
+        print_html_element_list(out, elt->contents.peglink->label, obfuscate);
         g_string_append_printf(out, "\"");
-        if (strlen(elt->contents.link->title) > 0) {
+        if (strlen(elt->contents.peglink->title) > 0) {
             g_string_append_printf(out, " title=\"");
-            print_html_string(out, elt->contents.link->title, obfuscate);
+            print_html_string(out, elt->contents.peglink->title, obfuscate);
             g_string_append_printf(out, "\"");
         }
         g_string_append_printf(out, " />");
@@ -453,12 +453,12 @@ static void print_latex_element(GString *out, element *elt) {
         /* don't print HTML */
         break;
     case LINK:
-        g_string_append_printf(out, "\\href{%s}{", elt->contents.link->url);
-        print_latex_element_list(out, elt->contents.link->label);
+        g_string_append_printf(out, "\\href{%s}{", elt->contents.peglink->url);
+        print_latex_element_list(out, elt->contents.peglink->label);
         g_string_append_printf(out, "}");
         break;
     case IMAGE:
-        g_string_append_printf(out, "\\includegraphics{%s}", elt->contents.link->url);
+        g_string_append_printf(out, "\\includegraphics{%s}", elt->contents.peglink->url);
         break;
     case EMPH:
         g_string_append_printf(out, "\\emph{");
@@ -666,13 +666,13 @@ static void print_groff_mm_element(GString *out, element *elt, int count) {
         /* don't print HTML */
         break;
     case LINK:
-        print_groff_mm_element_list(out, elt->contents.link->label);
-        g_string_append_printf(out, " (%s)", elt->contents.link->url);
+        print_groff_mm_element_list(out, elt->contents.peglink->label);
+        g_string_append_printf(out, " (%s)", elt->contents.peglink->url);
         padded = 0;
         break;
     case IMAGE:
         g_string_append_printf(out, "[IMAGE: ");
-        print_groff_mm_element_list(out, elt->contents.link->label);
+        print_groff_mm_element_list(out, elt->contents.peglink->label);
         g_string_append_printf(out, "]");
         padded = 0;
         /* not supported */
@@ -960,22 +960,22 @@ static void print_odf_element(GString *out, element *elt) {
         break;
     case LINK:
         g_string_append_printf(out, "<text:a xlink:type=\"simple\" xlink:href=\"");
-        print_html_string(out, elt->contents.link->url, 0);
+        print_html_string(out, elt->contents.peglink->url, 0);
         g_string_append_printf(out, "\"");
-        if (strlen(elt->contents.link->title) > 0) {
+        if (strlen(elt->contents.peglink->title) > 0) {
             g_string_append_printf(out, " office:name=\"");
-            print_html_string(out, elt->contents.link->title, 0);
+            print_html_string(out, elt->contents.peglink->title, 0);
             g_string_append_printf(out, "\"");
         }
         g_string_append_printf(out, ">");
-        print_odf_element_list(out, elt->contents.link->label);
+        print_odf_element_list(out, elt->contents.peglink->label);
         g_string_append_printf(out, "</text:a>");
         break;
     case IMAGE:
         g_string_append_printf(out, "<draw:frame text:anchor-type=\"as-char\"\ndraw:z-index=\"0\" draw:style-name=\"fr1\" svg:width=\"95%%\"");
         g_string_append_printf(out, ">\n<draw:text-box><text:p><draw:frame text:anchor-type=\"as-char\" draw:z-index=\"1\" ");
         g_string_append_printf(out, "><draw:image xlink:href=\"");
-        print_odf_string(out, elt->contents.link->url);
+        print_odf_string(out, elt->contents.peglink->url);
         g_string_append_printf(out,"\" xlink:type=\"simple\" xlink:show=\"embed\" xlink:actuate=\"onLoad\" draw:filter-name=\"&lt;All formats&gt;\"/>\n</draw:frame></text:p>");
         g_string_append_printf(out, "</draw:text-box></draw:frame>\n");
         break;

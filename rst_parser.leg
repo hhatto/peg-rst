@@ -603,7 +603,7 @@ ReferenceLink = UnquotedRefLinkUnderbar | QuotedRefLinkUnderbar
 UnquotedRefLinkUnderbar =
     < a:UnquotedLinkSource > '_'
     {
-        link match;
+        peglink match;
         if (find_reference(&match, a->children)) {
             $$ = mk_link(mk_str(a->contents.str), match.url, match.title);
             free_element(a);
@@ -618,7 +618,7 @@ UnquotedRefLinkUnderbar =
 QuotedRefLinkUnderbar =
     ( !"`_" !"``_" '`' !"``" ) a:QuotedRefSource ( '`' !"``" ) '_'
     {
-        link match;
+        peglink match;
         if (find_reference(&match, a->children)) {
             $$ = mk_link(mk_str(yytext), match.url, match.title);
             free_element(a);
