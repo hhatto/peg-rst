@@ -66,7 +66,7 @@ bool match_inlines(element *l1, element *l2);
 
 /* find_reference - return true if link found in references matching label.
  * 'link' is modified with the matching url and title. */
-bool find_reference(link *result, element *label);
+bool find_reference(peglink *result, element *label);
 
 /* find_note - return true if note found in notes matching label.
 if found, 'result' is set to point to matched note. */
